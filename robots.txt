@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.criollobeaufort.com/sitemap.xml
+Sitemap: https://criollo.elijahdesent.com/sitemap.xml
