@@ -2,6 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.criollobeaufort.com" }],
+      "destination": "https://criollobeaufort.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.criollobeaufort.com" }],
       "destination": "https://criollobeaufort.com/:path*",
