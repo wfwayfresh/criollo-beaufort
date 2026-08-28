@@ -1,0 +1,8 @@
+{
+  "name": "criollo-beaufort",
+  "private": true,
+  "description": "Static site for Criollo. The only server-side code is api/enquiry.js, which emails form submissions.",
+  "dependencies": {
+    "nodemailer": "^6.9.14"
+  }
+}

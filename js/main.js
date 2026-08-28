@@ -91,16 +91,45 @@
     });
   }
 
-  /* demo-only forms */
-  document.querySelectorAll('form[data-demo]').forEach(function (f) {
+  /* enquiry forms — post to /api/enquiry, report inline */
+  document.querySelectorAll('form[data-enquiry]').forEach(function (f) {
+    var status = f.querySelector('.form-status');
     f.addEventListener('submit', function (e) {
       e.preventDefault();
-      var b = f.querySelector('[type="submit"]');
-      if (!b) return;
-      var t = b.textContent;
-      b.textContent = 'Demo only — not sent';
-      b.disabled = true;
-      setTimeout(function () { b.textContent = t; b.disabled = false; }, 2600);
+      var btn = f.querySelector('[type="submit"]');
+      var original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      if (status) { status.textContent = ''; status.className = 'form-status'; }
+
+      var data = {};
+      new FormData(f).forEach(function (v, k) { data[k] = v; });
+      data.page = window.location.pathname;
+
+      fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function (r) { return r.json().catch(function () { return { ok: r.ok }; }); })
+        .then(function (out) {
+          if (!out.ok) throw new Error(out.error || 'Something went wrong.');
+          f.reset();
+          if (btn) btn.textContent = 'Thank you — sent';
+          if (status) {
+            status.className = 'form-status ok';
+            status.textContent = 'Thank you. We have your details and will be in touch shortly.';
+          }
+          setTimeout(function () {
+            if (btn) { btn.disabled = false; btn.textContent = original; }
+          }, 4000);
+        })
+        .catch(function (err) {
+          if (btn) { btn.disabled = false; btn.textContent = original; }
+          if (status) {
+            status.className = 'form-status err';
+            status.textContent = err.message || 'We could not send that. Please call us instead.';
+          }
+        });
     });
   });
 })();

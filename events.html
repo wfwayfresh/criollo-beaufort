@@ -146,7 +146,9 @@
         <h2 class="h2">Tell us what you have in mind</h2>
         <p class="muted" style="margin-top:1.1rem">We'll get back to you with dates, options and a menu.</p>
       </div>
-      <form class="form rv" data-demo>
+      <form class="form rv" data-enquiry method="post" action="/api/enquiry">
+      <input type="hidden" name="form" value="events">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
         <div class="frow">
           <div class="field">
             <label for="nm">Name</label>
@@ -193,6 +195,7 @@
           <button class="btn" type="submit">Send inquiry</button>
           <span class="formnote">Or call <a href="tel:+18436440122" style="color:var(--brass);text-decoration:none">843-644-0122</a></span>
         </div>
+        <span class="form-status" role="status" aria-live="polite"></span>
       </form>
     </div>
   </section>
