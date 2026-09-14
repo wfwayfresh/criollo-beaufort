@@ -217,6 +217,7 @@ p:last-child{margin-bottom:0}
 .hero-in{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut)}
 .hero .horse-big{
   width:clamp(78px,10vw,132px);margin-bottom:1.6rem;opacity:.94;
+  filter:brightness(0) saturate(100%) invert(53%) sepia(62%) saturate(1097%) hue-rotate(174deg) brightness(88%) contrast(91%);
 }
 .hero .display{margin-bottom:1.2rem;max-width:16ch}
 .hero .lede{max-width:44ch;margin-bottom:2.3rem}
