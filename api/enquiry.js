@@ -5,14 +5,14 @@
 // both restaurants send to the same address.
 //
 // Env (set on the Vercel project):
-//   ENQUIRY_TO              where submissions land
+//   ENQUIRY_TO              where submissions land (kept out of the code — the repo is public)
 //   WES_GMAIL_USER          SMTP account (also the From address; Gmail requires they match)
 //   WES_GMAIL_APP_PASSWORD  Gmail app password for that account
 
 const nodemailer = require("nodemailer");
 
 const SITE_NAME = "Criollo";
-const TO = process.env.ENQUIRY_TO || "melaniemccaffree@gmail.com";
+const TO = process.env.ENQUIRY_TO;
 
 // Which form posted, and how its email should read.
 const FORMS = {
@@ -75,8 +75,8 @@ module.exports = async function handler(req, res) {
 
   const user = process.env.WES_GMAIL_USER;
   const pass = process.env.WES_GMAIL_APP_PASSWORD;
-  if (!user || !pass) {
-    console.error("[enquiry] SMTP credentials missing — cannot send");
+  if (!TO || !user || !pass) {
+    console.error("[enquiry] ENQUIRY_TO or SMTP credentials missing — cannot send");
     return res.status(500).json({ ok: false, error: "Mail is not configured. Please call us instead." });
   }
 
